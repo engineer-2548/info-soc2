@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: เจาะลึก SOC 2 Framework</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flowchart-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2rem;
+            border-left: 2px solid #3b82f6;
+        }
+        .flowchart-step:last-child {
+            border-left: none;
+        }
+        .flowchart-step::before {
+            content: '';
+            position: absolute;
+            left: -11px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            border: 2px solid #ffffff;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-blue-900 mb-2">เจาะลึก SOC 2</h1>
+            <p class="text-xl text-gray-600">กรอบการทำงานเพื่อสร้างความไว้วางใจในเศรษฐกิจบริการ</p>
+        </header>
+
+        <section id="intro" class="mb-16">
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8 text-center">
+                <p class="text-lg md:text-xl mb-4 text-gray-700">ในยุคที่ธุรกิจพึ่งพาบริการคลาวด์และ SaaS ความไว้วางใจของลูกค้าคือสินทรัพย์ที่สำคัญที่สุด SOC 2 ไม่ใช่แค่ 'ใบรับรอง' แต่เป็น 'รายงานการรับรอง' จากผู้ตรวจสอบอิสระ (CPA) ที่ยืนยันว่าองค์กรของคุณจัดการข้อมูลอย่างปลอดภัย</p>
+                <div class="text-6xl font-bold text-blue-600">AICPA</div>
+                <p class="text-sm text-gray-500">พัฒนาโดยสถาบันผู้สอบบัญชีรับอนุญาตแห่งสหรัฐอเมริกา</p>
+            </div>
+        </section>
+
+        <section id="tsc" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-blue-900">แกนหลักของ SOC 2: 5 หลักการบริการที่น่าเชื่อถือ</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <p class="mb-4 text-gray-700">หัวใจของ SOC 2 คือ Trust Services Criteria (TSC) 5 ประการ ซึ่งเป็นเกณฑ์ที่ใช้ประเมินมาตรการควบคุมขององค์กร โดยมีหลักการด้านความปลอดภัย (Security) เป็นข้อบังคับพื้นฐานสำหรับทุกการตรวจสอบ</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center"><span class="text-blue-500 font-bold mr-2">🛡️ Security (ความปลอดภัย):</span> หลักการบังคับพื้นฐาน</li>
+                        <li class="flex items-center"><span class="text-teal-500 font-bold mr-2">📈 Availability (ความพร้อมใช้งาน):</span> ระบบพร้อมใช้ตามสัญญา</li>
+                        <li class="flex items-center"><span class="text-purple-500 font-bold mr-2">⚙️ Processing Integrity (ความถูกต้อง):</span> ประมวลผลสมบูรณ์ แม่นยำ</li>
+                        <li class="flex items-center"><span class="text-orange-500 font-bold mr-2">🤫 Confidentiality (การรักษาความลับ):</span> ปกป้องข้อมูลที่เป็นความลับ</li>
+                        <li class="flex items-center"><span class="text-pink-500 font-bold mr-2">👤 Privacy (ความเป็นส่วนตัว):</span> จัดการข้อมูลส่วนบุคคลอย่างถูกต้อง</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="chart-container">
+                        <canvas id="tscRadarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="types" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-blue-900">Type I vs. Type II: เลือกรายงานแบบไหน?</h2>
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <p class="text-center text-gray-700 mb-6">ความแตกต่างสำคัญอยู่ที่ขอบเขตและช่วงเวลาในการตรวจสอบ ซึ่งส่งผลต่อระดับความเชื่อมั่นที่ลูกค้าได้รับ</p>
+                <div class="chart-container h-80 md:h-96">
+                    <canvas id="reportTypeBarChart"></canvas>
+                </div>
+                <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+                    <div class="border border-blue-200 rounded-lg p-4">
+                        <h3 class="font-bold text-blue-700">Type I: ภาพนิ่ง ณ จุดเวลาเดียว</h3>
+                        <p class="text-sm text-gray-600">ประเมิน <span class="font-semibold">"การออกแบบ"</span> ของมาตรการควบคุม เหมาะสำหรับเริ่มต้นและต้องการรายงานเร่งด่วน</p>
+                    </div>
+                    <div class="border border-teal-200 rounded-lg p-4">
+                        <h3 class="font-bold text-teal-700">Type II: พิสูจน์ตลอดช่วงเวลา</h3>
+                        <p class="text-sm text-gray-600">ประเมินทั้ง <span class="font-semibold">"การออกแบบและประสิทธิผล"</span> ตลอด 3-12 เดือน ให้ความเชื่อมั่นสูงสุด</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="process" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-blue-900">เส้นทางสู่การรับรอง SOC 2</h2>
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <div class="max-w-2xl mx-auto">
+                    <div class="flowchart-step">
+                        <h3 class="text-xl font-bold text-blue-800 mb-1">ระยะที่ 1: การเตรียมความพร้อม</h3>
+                        <p class="text-gray-600">กำหนดขอบเขต, เลือกประเภทรายงานและ TSC, ทำ Gap Analysis เพื่อหาจุดอ่อน และวางแผนแก้ไข</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <h3 class="text-xl font-bold text-blue-800 mb-1">ระยะที่ 2: การตรวจสอบอย่างเป็นทางการ</h3>
+                        <p class="text-gray-600">เลือกบริษัท CPA ที่เชี่ยวชาญเพื่อเข้าตรวจสอบเอกสาร, สัมภาษณ์บุคลากร, และทดสอบระบบควบคุม</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <h3 class="text-xl font-bold text-blue-800 mb-1">ระยะที่ 3: รับรายงานและบำรุงรักษา</h3>
+                        <p class="text-gray-600">รับรายงาน SOC 2 พร้อมความเห็นของผู้ตรวจสอบ และต้องรักษามาตรฐานพร้อมต่ออายุรายงานทุกปี</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="benefits" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-blue-900">คุณค่าเชิงกลยุทธ์และประโยชน์</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <div class="text-4xl mb-3">🤝</div>
+                    <h3 class="font-bold text-lg text-purple-800">สร้างความไว้วางใจ</h3>
+                    <p class="text-sm text-gray-600">เป็นหลักฐานที่เป็นรูปธรรมว่าองค์กรให้ความสำคัญกับความปลอดภัยของข้อมูลลูกค้า</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <div class="text-4xl mb-3">🚀</div>
+                    <h3 class="font-bold text-lg text-purple-800">เพิ่มความได้เปรียบ</h3>
+                    <p class="text-sm text-gray-600">เป็นข้อกำหนดเบื้องต้นในการทำธุรกิจกับองค์กรขนาดใหญ่และเปิดโอกาสทางธุรกิจใหม่ๆ</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <div class="text-4xl mb-3">🛡️</div>
+                    <h3 class="font-bold text-lg text-purple-800">ลดความเสี่ยง</h3>
+                    <p class="text-sm text-gray-600">ยกระดับมาตรการความปลอดภัยโดยรวมและป้องกันความเสียหายจากการโจมตีทางไซเบอร์</p>
+                </div>
+                 <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <div class="text-4xl mb-3">⚙️</div>
+                    <h3 class="font-bold text-lg text-purple-800">เพิ่มประสิทธิภาพ</h3>
+                    <p class="text-sm text-gray-600">สร้างกระบวนการด้านความปลอดภัยที่เป็นระบบและยั่งยืน ลดความซ้ำซ้อนในการทำงาน</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="comparison" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-blue-900">เปรียบเทียบ: SOC 2 vs. ISO 27001</h2>
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <p class="text-center text-gray-700 mb-6">แม้จะมีความทับซ้อนกัน แต่ทั้งสองมีจุดเน้นและผลลัพธ์ที่แตกต่างกันอย่างชัดเจน</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-center font-bold text-xl mb-2 text-blue-800">SOC 2</h3>
+                        <div class="chart-container mx-auto h-64">
+                            <canvas id="soc2DonutChart"></canvas>
+                        </div>
+                         <p class="text-center mt-2 text-sm text-gray-600">เน้นการควบคุม <span class="font-semibold">บริการที่ให้แก่ลูกค้า</span> และมีความยืดหยุ่นสูง</p>
+                    </div>
+                    <div>
+                        <h3 class="text-center font-bold text-xl mb-2 text-teal-800">ISO 27001</h3>
+                        <div class="chart-container mx-auto h-64">
+                            <canvas id="iso27001DonutChart"></canvas>
+                        </div>
+                        <p class="text-center mt-2 text-sm text-gray-600">เน้นการสร้าง <span class="font-semibold">ระบบการจัดการ (ISMS)</span> ทั้งองค์กร</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center p-6 bg-blue-900 text-white mt-8">
+        <p>Infographic จัดทำขึ้นเพื่อการศึกษาเกี่ยวกับ Cybersecurity Frameworks</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const FONT_FAMILY = "'Sarabun', sans-serif";
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                }
+                return label;
+            };
+            
+            const wrapText = (label, maxWidth) => {
+                if (typeof label !== 'string' || label.length <= maxWidth) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + ' ' + word).trim().length > maxWidth && currentLine.length > 0) {
+                        lines.push(currentLine);
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                });
+                if (currentLine.length > 0) {
+                    lines.push(currentLine);
+                }
+                return lines;
+            };
+
+            const sharedChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                family: FONT_FAMILY,
+                                size: 14,
+                            }
+                        }
+                    },
+                    tooltip: {
+                        titleFont: { family: FONT_FAMILY },
+                        bodyFont: { family: FONT_FAMILY },
+                        callbacks: {
+                           title: tooltipTitleCallback
+                        }
+                    }
+                }
+            };
+
+            const tscData = {
+                labels: ['Security', 'Availability', ['Processing', 'Integrity'], 'Confidentiality', 'Privacy'],
+                datasets: [{
+                    label: 'Trust Services Criteria',
+                    data: [5, 4, 4, 5, 4.5],
+                    fill: true,
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    borderColor: 'rgb(59, 130, 246)',
+                    pointBackgroundColor: 'rgb(59, 130, 246)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(59, 130, 246)'
+                }]
+            };
+
+            new Chart(document.getElementById('tscRadarChart'), {
+                type: 'radar',
+                data: tscData,
+                options: {
+                    ...sharedChartOptions,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            pointLabels: {
+                                font: {
+                                    family: FONT_FAMILY,
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            },
+                            ticks: {
+                                backdropColor: 'transparent',
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            const reportTypeData = {
+                labels: [wrapText('Type I Report (การออกแบบ)', 20), wrapText('Type II Report (ประสิทธิผล)', 20)],
+                datasets: [{
+                    label: 'ระดับความเชื่อมั่น',
+                    data: [60, 100],
+                    backgroundColor: [
+                        'rgba(96, 165, 250, 0.7)',
+                        'rgba(20, 184, 166, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgb(96, 165, 250)',
+                        'rgb(20, 184, 166)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            new Chart(document.getElementById('reportTypeBarChart'), {
+                type: 'bar',
+                data: reportTypeData,
+                options: {
+                    ...sharedChartOptions,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: { display: false },
+                             grid: { display: false }
+                        },
+                        y: {
+                            ticks: { font: { family: FONT_FAMILY, size: 14 } },
+                             grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            ...sharedChartOptions.plugins.tooltip,
+                            callbacks: {
+                                ...sharedChartOptions.plugins.tooltip.callbacks,
+                                label: (context) => `ระดับความเชื่อมั่น: ${context.raw}`
+                            }
+                        }
+                    }
+                }
+            });
+
+            const soc2DonutData = {
+                labels: ['การควบคุมบริการ', 'ความยืดหยุ่น'],
+                datasets: [{
+                    label: 'Focus',
+                    data: [70, 30],
+                    backgroundColor: ['#3b82f6', '#a78bfa'],
+                    hoverOffset: 4
+                }]
+            };
+            
+            new Chart(document.getElementById('soc2DonutChart'), {
+                type: 'doughnut',
+                data: soc2DonutData,
+                options: {
+                   ...sharedChartOptions,
+                   cutout: '60%',
+                }
+            });
+
+            const iso27001DonutData = {
+                labels: ['ระบบการจัดการ (ISMS)', 'ครอบคลุมทั้งองค์กร'],
+                datasets: [{
+                    label: 'Focus',
+                    data: [75, 25],
+                    backgroundColor: ['#14b8a6', '#f472b6'],
+                    hoverOffset: 4
+                }]
+            };
+
+            new Chart(document.getElementById('iso27001DonutChart'), {
+                type: 'doughnut',
+                data: iso27001DonutData,
+                options: {
+                   ...sharedChartOptions,
+                   cutout: '60%',
+                }
+            });
+        });
+    </script>
+</body>
+</html>
