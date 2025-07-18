@@ -3,9 +3,9 @@
 &lt;head&gt;
     &lt;meta charset=&quot;UTF-8&quot;&gt;
     &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
-    &lt;!-- Chosen Palette: Energetic &amp; Playful --&gt;
-    &lt;!-- Application Structure Plan: A narrative-driven, single-page infographic presentation. The structure follows the user&#39;s slide deck outline, starting with the &#39;Why&#39; (threat landscape), moving to the &#39;What&#39; (defining SOC 2), the &#39;How&#39; (TSC principles and report types), and finally the &#39;Value&#39; (benefits and comparison). This linear flow is ideal for a presentation format, guiding the audience step-by-step through the topic. --&gt;
-    &lt;!-- Visualization &amp; Content Choices: Leveraged Chart.js for data visualization (Bar, Doughnut, Radar) to make statistics engaging. Used HTML/CSS for timelines and comparison tables. Bar charts visualize threat statistics. Doughnut charts show composition (attack root causes). Radar chart visualizes the 5 TSCs. This approach avoids SVG/Mermaid and uses the best visual tool for each piece of data to tell a compelling story. --&gt;
+    &lt;!-- Chosen Palette: Calm Corporate --&gt;
+    &lt;!-- Application Structure Plan: A narrative-driven, single-page infographic presentation optimized for a 15-20 minute talk. The structure logically flows from the &#39;Problem&#39; (threat landscape) to establish context, then to the &#39;Solution&#39; (what SOC 2 is), its &#39;Mechanics&#39; (core principles, report types), and finally its &#39;Strategic Value&#39; (benefits). This linear storytelling is ideal for a presentation format, ensuring the audience can follow along easily from introduction to conclusion. --&gt;
+    &lt;!-- Visualization &amp; Content Choices: Data from the source report is visualized using Chart.js for maximum impact and clarity. Goal: Show Problem -&gt; Viz: Bar Chart (Thai Threats) &amp; Doughnut Chart (Global Root Causes) to make stats digestible. Goal: Explain Core -&gt; Viz: Radar Chart (5 TSCs) to show multi-faceted nature. Goal: Show Process -&gt; Viz: Custom HTML/CSS Flowchart to clearly delineate the 3 phases. Goal: Compare -&gt; Viz: Side-by-side HTML/CSS cards for Type I vs Type II comparison. These choices are optimal for their respective data types and avoid SVG/Mermaid as required. --&gt;
     &lt;!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. --&gt;
     &lt;title&gt;Presentation: SOC 2 Framework&lt;/title&gt;
     &lt;script src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;
@@ -16,60 +16,76 @@
     &lt;style&gt;
         body {
             font-family: &#39;Sarabun&#39;, sans-serif;
-            background-color: #111827; /* Dark background */
-            color: #d1d5db; /* Light gray text */
+            background-color: #f8fafc; /* Light Gray Background */
+            color: #334155; /* Slate Gray Text */
         }
         .section-card {
-            background-color: #1f2937; /* Darker card background */
+            background-color: #ffffff;
             border-radius: 1rem;
             padding: 2rem;
             margin-bottom: 4rem;
-            border: 1px solid #374151;
+            border: 1px solid #e2e8f0;
             scroll-margin-top: 80px;
         }
         .gradient-text {
-            background: linear-gradient(to right, #38bdf8, #a78bfa, #f472b6);
+            background: linear-gradient(to right, #2563eb, #0d9488);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 500px;
+            max-width: 450px;
             margin-left: auto;
             margin-right: auto;
             height: 300px;
-            max-height: 400px;
+            max-height: 350px;
         }
-        @media (min-width: 768px) {
-            .chart-container { height: 350px; }
-        }
-        .flow-step {
-            position: relative;
-            padding-bottom: 2rem;
-            padding-left: 2rem;
-            border-left: 2px dashed #4b5567;
-        }
-        .flow-step:last-child { border-left: 0; }
-        .flow-step::before {
-            content: attr(data-step);
-            position: absolute;
-            left: -18px;
-            top: -5px;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: #3b82f6;
-            color: white;
-            font-weight: bold;
+        .process-flow-container {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            border: 3px solid #1f2937;
+            gap: 1rem;
+        }
+        .process-step {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+        .process-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #e0f2fe;
+            color: #0284c7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            border: 4px solid #ffffff;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .process-arrow {
+            font-size: 2.5rem;
+            color: #94a3b8;
+            margin: 0.5rem 0;
+            transform: rotate(90deg);
+        }
+         @media (min-width: 768px) {
+            .process-flow-container {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+            .process-arrow {
+                 transform: rotate(0deg);
+            }
         }
         .sticky-nav {
             backdrop-filter: blur(10px);
-            background-color: rgba(31, 41, 55, 0.8);
+            background-color: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid #e2e8f0;
         }
     &lt;/style&gt;
 &lt;/head&gt;
